@@ -31,6 +31,10 @@ PieChartSegment *parse_segments(char **input, int *length);
 
 int main(int argc, char **argv)
 {
+    int width = 800;
+    int height = 600;
+    int color; 
+
     if (argc < 4)
     {
         printf("Usage: %s <output file> <percentages> <labels>\n", argv[0]);
@@ -47,6 +51,10 @@ int main(int argc, char **argv)
         return 1;
     }
 
+
+    // Créer une nouvelle image
+    gdImagePtr img = gdImageCreate(width, height);
+
     // Dessiner le graphique en camembert
     for (int i = 0; i < length; i++)
     {
@@ -55,6 +63,7 @@ int main(int argc, char **argv)
     }
     // Enregistrer l'image
     FILE *out = fopen(output_file, "wb+");
+
     if (!out)
     {
         printf("Erreur lors de l'ouverture du fichier de sortie\n");
