@@ -33,7 +33,12 @@ int main(int argc, char **argv)
 {
     int width = 800;
     int height = 600;
-    int color; 
+    int start_angle = 0; // Définir l'angle de départ
+    int end_angle = 60;  // Définir l'angle de fin
+    int radius = 200;    // Définir le rayon
+    int x = width / 2;   // Centrer le cercle en x
+    int y = height / 2;  // Centrer le cercle en y
+    int color;
 
     if (argc < 4)
     {
@@ -55,11 +60,27 @@ int main(int argc, char **argv)
     // Créer une nouvelle image
     gdImagePtr img = gdImageCreate(width, height);
 
+    // Couleur de fond
+    int bg = gdImageColorAllocate(img, 255, 255, 255);
+
+    // Couleurs pour les segments du camembert
+    int colors[] = {
+        gdImageColorAllocate(img, 255, 0, 0),   // Rouge
+        gdImageColorAllocate(img, 0, 255, 0),   // Vert
+        gdImageColorAllocate(img, 0, 0, 255),   // Bleu
+        gdImageColorAllocate(img, 0, 255, 255),   // Bleu
+        gdImageColorAllocate(img, 255, 0, 255),   // Bleu
+    };
+
     // Dessiner le graphique en camembert
-    for (int i = 0; i < length; i++)
-    {
-        // TODO: Dessiner le segment i
-        // TODO: Écrire le label pour le segment i
+    // Dessiner chaque segment
+    for (int i = 0; i < length; i++) {
+        int end_angle = start_angle + segments[i].percentage * 3.6; // Multiplier par 3.6 pour convertir en degrés
+
+        // Dessiner le segment du camembert
+        gdImageFilledArc(img, x, y, 2 * radius, 2 * radius, start_angle, end_angle, colors[i], gdPie);
+
+        start_angle = end_angle;
     }
     // Enregistrer l'image
     FILE *out = fopen(output_file, "wb+");
