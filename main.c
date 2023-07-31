@@ -13,19 +13,21 @@ typedef struct
 } PieChartSegment;
 
 // Définir une approximation de la palette "viridis"
-struct Color {
+typedef struct Color 
+{
     int r;
     int g;
     int b;
-};
-struct Color viridis[] = {
-    {68, 1, 84}, {72, 15, 122}, {70, 29, 145},
-    {64, 45, 155}, {58, 62, 163}, {51, 79, 168},
-    {44, 97, 170}, {37, 116, 169}, {33, 136, 166},
-    {31, 155, 162}, {34, 175, 154}, {51, 194, 143},
-    {76, 210, 132}, {108, 225, 118}, {146, 238, 102},
-    {189, 249, 87}, {237, 255, 69}, {255, 255, 21}
-};
+}Color;
+// Générer une couleur aléatoire
+Color generate_random_color()
+{
+    Color color;
+    color.r = rand() % 256;
+    color.g = rand() % 256;
+    color.b = rand() % 256;
+    return color;
+}
 
 PieChartSegment *parse_segments(char **input, int *length);
 
@@ -63,22 +65,20 @@ int main(int argc, char **argv)
     // Couleur de fond
     int bg = gdImageColorAllocate(img, 255, 255, 255);
 
-    // Couleurs pour les segments du camembert
-    int colors[] = {
-        gdImageColorAllocate(img, 255, 0, 0),   // Rouge
-        gdImageColorAllocate(img, 0, 255, 0),   // Vert
-        gdImageColorAllocate(img, 0, 0, 255),   // Bleu
-        gdImageColorAllocate(img, 0, 255, 255),   // Bleu
-        gdImageColorAllocate(img, 255, 0, 255),   // Bleu
-    };
 
     // Dessiner le graphique en camembert
     // Dessiner chaque segment
     for (int i = 0; i < length; i++) {
         int end_angle = start_angle + segments[i].percentage * 3.6; // Multiplier par 3.6 pour convertir en degrés
 
+        // Générer une couleur aléatoire
+        Color color = generate_random_color();
+
+        // Allouer la couleur dans l'image
+        int img_color = gdImageColorAllocate(img, color.r, color.g, color.b);
+
         // Dessiner le segment du camembert
-        gdImageFilledArc(img, x, y, 2 * radius, 2 * radius, start_angle, end_angle, colors[i], gdPie);
+        gdImageFilledArc(img, x, y, 2 * radius, 2 * radius, start_angle, end_angle, img_color, gdPie);
 
         start_angle = end_angle;
     }
