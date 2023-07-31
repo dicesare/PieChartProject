@@ -1,0 +1,1 @@
+/usr/bin/gcc -g CMakeFiles/PieChartProject.dir/main.c.o -o PieChartProject 
