@@ -29,23 +29,8 @@ struct Color viridis[] = {
 
 PieChartSegment *parse_segments(char **input, int *length);
 
-int num_colors = sizeof(viridis) / sizeof(viridis[0]);
-
-void draw_segments_recursive(gdImagePtr img, int x, int y, int radius, int start_angle, PieChartSegment *segments, int length, int index, int color);
-void draw_segment(gdImagePtr im, int x, int y, int radius, int start_angle, int percentage, int color, char *label);
-
-
 int main(int argc, char **argv)
 {
-
-    int width = 800;
-    int height = 600;
-    int start_angle = 0; // Définir l'angle de départ
-    int end_angle = 60; // Définir l'angle de fin
-    int radius = 200; // Définir le rayon
-    int x = width / 2; // Centrer le cercle en x
-    int y = height / 2; // Centrer le cercle en y
-    int color; 
     if (argc < 4)
     {
         printf("Usage: %s <output file> <percentages> <labels>\n", argv[0]);
@@ -62,19 +47,6 @@ int main(int argc, char **argv)
         return 1;
     }
 
-
-    // Créer une nouvelle image
-    gdImagePtr img = gdImageCreate(width, height);
-    // Creer une couleur fixe rouge
-    int red = gdImageColorAllocate(img, 255, 0, 0);
-
-    draw_segments_recursive(img, x, y, radius, start_angle, segments, length, 0, red);
-
-    if (!img)
-    {
-        free(segments);
-        return 1;
-    }
     // Dessiner le graphique en camembert
     for (int i = 0; i < length; i++)
     {
@@ -97,38 +69,6 @@ int main(int argc, char **argv)
     gdImageDestroy(img);
     free(segments);
     return 0;
-}
-
-void draw_segments_recursive(gdImagePtr img, int x, int y, int radius, int start_angle, PieChartSegment *segments, int length, int index, int color) {
-    if (index >= length)
-        return;
-
-    draw_segment(img, x, y, radius, start_angle, segments[index].percentage, color, segments[index].label);
-
-    int next_start_angle = start_angle + (segments[index].percentage * 360) / 100;
-
-    draw_segments_recursive(img, x, y, radius, next_start_angle, segments, length, index + 1, color);
-}
-
-void draw_segment(gdImagePtr im, int x, int y, int radius, int start_angle, int percentage, int color, char *label) {
-    int end_angle = start_angle + (percentage * 360) / 100; // Calculer l'angle de fin
-
-    // Dessiner le segment de cercle
-    gdImageFilledArc(im, x, y, radius * 2, radius * 2, start_angle, end_angle, color, gdPie);
-
-    // Écrire le label
-    // Définir les paramètres de la police de caractères
-    char *fontPath = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"; // Chemin vers le fichier de police, à adapter à votre système
-    double fontSize = 12.0; // Taille de la police en points
-
-    // Calculer la position du texte
-    int label_x = x + (radius / 2) * cos((start_angle + (end_angle - start_angle) / 2) * M_PI / 180);
-    int label_y = y + (radius / 2) * sin((start_angle + (end_angle - start_angle) / 2) * M_PI / 180);
-
-    // Écrire le texte
-    int brect[8]; // Rectangle délimitant le texte
-    gdImageStringFT(NULL, brect, color, fontPath, fontSize, 0, 0, 0, label);
-    gdImageStringFT(im, brect, color, fontPath, fontSize, 0, label_x - (brect[2] - brect[0]) / 2, label_y + (brect[3] - brect[7]) / 2, label);
 }
 
 
