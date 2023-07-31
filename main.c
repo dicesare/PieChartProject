@@ -13,12 +13,12 @@ typedef struct
 } PieChartSegment;
 
 // Définir une approximation de la palette "viridis"
-typedef struct Color 
+typedef struct Color
 {
     int r;
     int g;
     int b;
-}Color;
+} Color;
 // Générer une couleur aléatoire
 Color generate_random_color()
 {
@@ -42,6 +42,8 @@ int main(int argc, char **argv)
     int y = height / 2;  // Centrer le cercle en y
     int color;
 
+    srand(time(NULL)); // Initialiser le générateur de nombres aléatoires
+    
     if (argc < 4)
     {
         printf("Usage: %s <output file> <percentages> <labels>\n", argv[0]);
@@ -58,17 +60,16 @@ int main(int argc, char **argv)
         return 1;
     }
 
-
     // Créer une nouvelle image
     gdImagePtr img = gdImageCreate(width, height);
 
     // Couleur de fond
     int bg = gdImageColorAllocate(img, 255, 255, 255);
 
-
     // Dessiner le graphique en camembert
     // Dessiner chaque segment
-    for (int i = 0; i < length; i++) {
+    for (int i = 0; i < length; i++)
+    {
         int end_angle = start_angle + segments[i].percentage * 3.6; // Multiplier par 3.6 pour convertir en degrés
 
         // Générer une couleur aléatoire
@@ -101,7 +102,6 @@ int main(int argc, char **argv)
     return 0;
 }
 
-
 // Analyse les pourcentages et les étiquettes depuis la ligne de commande
 PieChartSegment *parse_segments(char **input, int *length)
 {
@@ -121,7 +121,7 @@ PieChartSegment *parse_segments(char **input, int *length)
     if (segments == NULL)
         return NULL; // si errreur allocation on arrete le traitement
     int i = 0;
-    char *saveptr1, *saveptr2; // pointeurs de sauvegarde pour strtok_r
+    char *saveptr1, *saveptr2;                                             // pointeurs de sauvegarde pour strtok_r
     char *token_percentages = strtok_r(input_percentages, ",", &saveptr1); // on utilise la ',' pour separer notre chaine en tokens
     char *token_labels = strtok_r(input_labels, ",", &saveptr2);           // on utilise la ',' pour separer notre chaine en tokens
     while (token_percentages != NULL && token_labels != NULL)
@@ -138,8 +138,6 @@ PieChartSegment *parse_segments(char **input, int *length)
     return segments;
 }
 //     // TODO: Définir la palette de couleurs "viridis"
-
-
 
 //     // Enregistrer l'image
 //     FILE *out = fopen(output_file, "wb+");
