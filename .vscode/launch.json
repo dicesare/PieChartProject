@@ -1,12 +1,14 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
+
         {
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
             "program": "${command:cmake.launchTargetPath}",
-            "args": [],
+            "args": ["output.png", "30,20,50", "Segment1,Segment2,Segment3"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

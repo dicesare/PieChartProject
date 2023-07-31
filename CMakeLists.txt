@@ -9,7 +9,7 @@ find_library(GD_LIBRARY NAMES gd)
 add_executable(pie main.c)
 
 target_include_directories(pie PRIVATE ${GD_INCLUDE_DIR})
-target_link_libraries(pie ${GD_LIBRARY})
+target_link_libraries(pie ${GD_LIBRARY} m)
 
 install(TARGETS pie
 LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})

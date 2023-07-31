@@ -65,8 +65,24 @@ CMakeFiles/pie.dir/main.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c
   /usr/include/strings.h \
   /usr/include/gd.h \
   /usr/include/gd_io.h \
-  /usr/include/gdfx.h
+  /usr/include/gdfx.h \
+  /usr/include/math.h \
+  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h
 
+
+/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
+
+/usr/include/x86_64-linux-gnu/bits/fp-fast.h:
+
+/usr/include/x86_64-linux-gnu/bits/math-vector.h:
+
+/usr/include/math.h:
 
 /usr/include/gd_io.h:
 
@@ -88,6 +104,8 @@ CMakeFiles/pie.dir/main.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
+/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
+
 /usr/include/time.h:
 
 /usr/include/features.h:
@@ -95,6 +113,8 @@ CMakeFiles/pie.dir/main.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
 
 /usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
@@ -120,6 +140,8 @@ CMakeFiles/pie.dir/main.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
 
+/usr/include/x86_64-linux-gnu/bits/mathcalls.h:
+
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
@@ -139,6 +161,8 @@ CMakeFiles/pie.dir/main.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
 /usr/include/stdc-predef.h:
+
+/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
