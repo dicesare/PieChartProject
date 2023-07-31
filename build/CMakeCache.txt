@@ -26,11 +26,8 @@ CMAKE_BUILD_TYPE:STRING=Debug
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
-//No help, variable specified on the command line.
-CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/g++
-
-//No help, variable specified on the command line.
-CMAKE_C_COMPILER:FILEPATH=/usr/bin/gcc
+//C compiler
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -124,7 +121,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=PieChartProject
+CMAKE_PROJECT_NAME:STATIC=ProjetLibGD
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -188,8 +185,11 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
-//The directory containing a CMake configuration file for GD.
-GD_DIR:PATH=GD_DIR-NOTFOUND
+//Path to a file.
+GD_INCLUDE_DIR:PATH=/usr/include
+
+//Path to a library.
+GD_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libgd.so
 
 //Value Computed by CMake
 PieChartProject_BINARY_DIR:STATIC=/home/antony_c/AJC/PROGRAM_C/PieChartProject/build
@@ -199,6 +199,15 @@ PieChartProject_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 PieChartProject_SOURCE_DIR:STATIC=/home/antony_c/AJC/PROGRAM_C/PieChartProject
+
+//Value Computed by CMake
+ProjetLibGD_BINARY_DIR:STATIC=/home/antony_c/AJC/PROGRAM_C/PieChartProject/build
+
+//Value Computed by CMake
+ProjetLibGD_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+ProjetLibGD_SOURCE_DIR:STATIC=/home/antony_c/AJC/PROGRAM_C/PieChartProject
 
 //The directory containing a CMake configuration file for gd.
 gd_DIR:PATH=gd_DIR-NOTFOUND

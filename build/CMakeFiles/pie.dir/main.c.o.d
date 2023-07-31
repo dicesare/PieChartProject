@@ -1,4 +1,4 @@
-CMakeFiles/PieChartProject.dir/main.c.o: \
+CMakeFiles/pie.dir/main.c.o: \
  /home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c \
  /usr/include/stdc-predef.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \

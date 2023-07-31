@@ -146,18 +146,6 @@
 			"value" : "/usr/bin/ctest"
 		},
 		{
-			"name" : "CMAKE_CXX_COMPILER",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
-				}
-			],
-			"type" : "FILEPATH",
-			"value" : "/usr/bin/g++"
-		},
-		{
 			"name" : "CMAKE_C_COMPILER",
 			"properties" : 
 			[
@@ -167,11 +155,11 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "C compiler"
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gcc"
+			"value" : "/usr/bin/cc"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_AR",
@@ -731,7 +719,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "PieChartProject"
+			"value" : "ProjetLibGD"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1014,16 +1002,28 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "GD_DIR",
+			"name" : "GD_INCLUDE_DIR",
 			"properties" : 
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "The directory containing a CMake configuration file for GD."
+					"value" : "Path to a file."
 				}
 			],
 			"type" : "PATH",
-			"value" : "GD_DIR-NOTFOUND"
+			"value" : "/usr/include"
+		},
+		{
+			"name" : "GD_LIBRARY",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/lib/x86_64-linux-gnu/libgd.so"
 		},
 		{
 			"name" : "PieChartProject_BINARY_DIR",
@@ -1051,6 +1051,42 @@
 		},
 		{
 			"name" : "PieChartProject_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/antony_c/AJC/PROGRAM_C/PieChartProject"
+		},
+		{
+			"name" : "ProjetLibGD_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/antony_c/AJC/PROGRAM_C/PieChartProject/build"
+		},
+		{
+			"name" : "ProjetLibGD_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "ProjetLibGD_SOURCE_DIR",
 			"properties" : 
 			[
 				{

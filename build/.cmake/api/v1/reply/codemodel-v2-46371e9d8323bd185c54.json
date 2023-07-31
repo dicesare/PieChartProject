@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-a2cc5394449e38cc4b16.json",
+					"jsonFile" : "directory-.-Debug-53486ccb30845172a523.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.5"
@@ -28,7 +28,7 @@
 					[
 						0
 					],
-					"name" : "PieChartProject",
+					"name" : "ProjetLibGD",
 					"targetIndexes" : 
 					[
 						0
@@ -39,9 +39,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "PieChartProject::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-PieChartProject-Debug-8e8b50c40863593f818a.json",
-					"name" : "PieChartProject",
+					"id" : "pie::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-pie-Debug-daf77bbb1f40607be9eb.json",
+					"name" : "pie",
 					"projectIndex" : 0
 				}
 			]
