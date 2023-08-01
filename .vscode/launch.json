@@ -8,7 +8,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${command:cmake.launchTargetPath}",
-            "args": ["output.png", "30,25,45", "Segment1,Segment ultre  qui devrait etre scinnder Long2,Se3"],
+            "args": ["output.png", "30,25,45", "Segment1,Segment ultre  qui devrait etre scinnder Long2,Se3", "CECI est un Titre"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
