@@ -31,14 +31,14 @@ Color generate_random_color()
 
 PieChartSegment *parse_segments(char **input, int *length);
 
-void draw_pie_chart_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int radius, int black);
-
+void draw_pie_chart_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int black);
+void insert_segment_labels(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int color);
 
 int main(int argc, char **argv)
 {
     int width = 800;
     int height = 600;
-    //int start_angle = 0; // Définir l'angle de départ
+    int start_angle = 0; // Définir l'angle de départ
     int end_angle = 60;  // Définir l'angle de fin
     int radius = 200;    // Définir le rayon
     int x = width / 2;   // Centrer le cercle en x
@@ -70,7 +70,8 @@ int main(int argc, char **argv)
 
     // Dessiner le graphique en camembert
     // Dessiner chaque segment
-    draw_pie_chart_segments(img, segments, length, x, y, radius, black);
+    draw_pie_chart_segments(img, segments, length, x, y, start_angle, radius, black);
+    insert_segment_labels(img, segments, length, x, y, start_angle, radius, black);
     // Enregistrer l'image
     FILE *out = fopen(output_file, "wb+");
 
@@ -89,9 +90,54 @@ int main(int argc, char **argv)
     free(segments);
     return 0;
 }
+// Insérer les étiquettes de segment
+void insert_segment_labels(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int color) {
+    // Définir les paramètres de la police de caractères
+    char *fontPath = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"; // Chemin vers le fichier de police, à adapter à votre système
+    double fontSize = 12.0;                                                  // Taille de la police en points
+
+    for (int i = 0; i < length; i++) {
+        int end_angle = start_angle + segments[i].percentage * 3.6; // Multiplier par 3.6 pour convertir en degrés
+        char *label = segments[i].label;
+
+        // Calculer la position du texte
+        int label_x = x + (radius * 1.2) * cos((start_angle + (end_angle - start_angle) / 2) * M_PI / 180);
+        int label_y = y + (radius * 1.2) * sin((start_angle + (end_angle - start_angle) / 2) * M_PI / 180);
+
+        // Écrire le texte
+        int brect[8]; // Rectangle délimitant le texte
+        gdImageStringFT(NULL, brect, color, fontPath, fontSize, 0, 0, 0, label);
+
+        // // Si le texte est sur la partie gauche du diagramme, aligner à la fin de la chaîne
+        // if(label_x < x) {
+        //     label_x -= (brect[2] - brect[0]);
+        // }
+        // Ajuster la position du texte selon la taille de la boîte englobante
+        int text_width = brect[2] - brect[0];
+        int text_height = brect[3] - brect[5];
+        label_x -= (brect[2] - brect[0]) / 2;
+        label_y += (brect[3] - brect[5]) / 2;
+
+        gdImageStringFT(img, brect, color, fontPath, fontSize, 0, label_x - (brect[2] - brect[0]) / 2, label_y + (brect[3] - brect[7]) / 2, label);
+        
+        // Calculer les coordonnées du point sur le bord du rectangle qui est le plus proche du centre du cercle
+        int line_start_x = (start_angle + (end_angle - start_angle) / 2 > 180) ? brect[0] : brect[2];
+        int line_start_y = (start_angle + (end_angle - start_angle) / 2 > 180) ? brect[1] : brect[3];
+
+        // Calculer les coordonnées du point médian sur le contour du segment
+        int mid_x = x + radius * cos((start_angle + (end_angle - start_angle) / 2) * M_PI / 180);
+        int mid_y = y + radius * sin((start_angle + (end_angle - start_angle) / 2) * M_PI / 180);
+
+        // Dessiner une ligne du point médian au texte
+        gdImageLine(img, mid_x, mid_y, line_start_x, line_start_y, color);
+
+        start_angle = end_angle;
+        start_angle = end_angle;
+    }
+}
+
 // Dessiner chaque segment du camembert
-void draw_pie_chart_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int radius, int black) {
-    int start_angle = 0;
+void draw_pie_chart_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int black) {
 
     for (int i = 0; i < length; i++)
     {
