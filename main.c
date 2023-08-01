@@ -4,6 +4,9 @@
 #include <string.h>
 #include <gd.h>
 #include <math.h>
+#include <unistd.h> 
+
+#define FONT_PATH "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
 // Structure pour stocker les informations sur un segment du graphique
 typedef struct
@@ -31,6 +34,7 @@ Color generate_random_color()
 
 PieChartSegment *parse_segments(char **input, int *length);
 
+void calculate_coordinates(int x, int y, int radius, int angle, int *coord_x, int *coord_y);
 void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int black);
 void draw_label(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int color);
 
@@ -70,6 +74,15 @@ int main(int argc, char **argv)
     // Dessiner le graphique en camembert
     // Dessiner chaque segment
     draw_pie_segments(img, segments, length, x, y, start_angle, radius, black);
+        
+    // Avant de dessiner les étiquettes, vérifiez que le fichier de police existe et que la taille de la police n'est pas trop grande
+    if (access(FONT_PATH, F_OK) == -1)
+    {
+        printf("Le fichier de police n'existe pas\n");
+        gdImageDestroy(img);
+        free(segments);
+        return 1;
+    }
     draw_label(img, segments, length, x, y, start_angle, radius, black);
     // Enregistrer l'image
     FILE *out = fopen(output_file, "wb+");
@@ -85,14 +98,26 @@ int main(int argc, char **argv)
     fclose(out);
 
     // Nettoyer
-    gdImageDestroy(img);
+    // Libérer la mémoire pour les étiquettes
+    for (int i = 0; i < length; i++)
+    {
+        free(segments[i].label);
+    }
+    gdImageDestroy(img);    
     free(segments);
     return 0;
 }
+
+void calculate_coordinates(int x, int y, int radius, int angle, int *coord_x, int *coord_y)
+{
+    *coord_x = x + radius * cos(angle * M_PI / 180);
+    *coord_y = y + radius * sin(angle * M_PI / 180);
+}
+
 // Insérer les étiquettes de segment
 void draw_label(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int color) {
     // Définir les paramètres de la police de caractères
-    char *fontPath = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"; // Chemin vers le fichier de police, à adapter à votre système
+    char *fontPath = FONT_PATH; // Chemin vers le fichier de police, à adapter à votre système
     double fontSize = radius * 0.05;                                                  // Taille de la police en points
 
     for (int i = 0; i < length; i++) {
@@ -100,8 +125,9 @@ void draw_label(gdImagePtr img, PieChartSegment *segments, int length, int x, in
         char *label = segments[i].label;
 
         // Calculer la position du texte
-        int label_x = x + (radius * 1.10) * cos((start_angle + (end_angle - start_angle) / 2) * M_PI / 180);
-        int label_y = y + (radius * 1.10) * sin((start_angle + (end_angle - start_angle) / 2) * M_PI / 180);
+        int label_x, label_y;
+        calculate_coordinates(x, y, radius * 1.10, start_angle + (end_angle - start_angle) / 2, &label_x, &label_y);
+
 
         // Écrire le texte
         int brect[8]; // Rectangle délimitant le texte
@@ -122,6 +148,7 @@ void draw_label(gdImagePtr img, PieChartSegment *segments, int length, int x, in
         start_angle = end_angle;
     }
 }
+
 
 // Dessiner chaque segment du camembert
 void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int black) {
@@ -146,10 +173,9 @@ void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, in
         double rad_start = start_angle * M_PI / 180.0;
         double rad_end = end_angle * M_PI / 180.0;
         double median = (end_angle + start_angle) / 2.0 * M_PI / 180.0;
-        int x_start = x + radius * cos(rad_start);
-        int y_start = y + radius * sin(rad_start);
-        int x_end = x + radius * cos(rad_end);
-        int y_end = y + radius * sin(rad_end);
+        int x_start, y_start, x_end, y_end;
+        calculate_coordinates(x, y, radius, start_angle, &x_start, &y_start);
+        calculate_coordinates(x, y, radius, end_angle, &x_end, &y_end);
         
         // Calculer les coordonnées du début de la médiane, au bord du cercle
         int x_med_start = x + radius * cos(median);
