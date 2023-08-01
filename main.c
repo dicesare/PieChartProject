@@ -31,19 +31,21 @@ Color generate_random_color()
 
 PieChartSegment *parse_segments(char **input, int *length);
 
+void draw_pie_chart_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int radius, int black);
+
+
 int main(int argc, char **argv)
 {
     int width = 800;
     int height = 600;
-    int start_angle = 0; // Définir l'angle de départ
+    //int start_angle = 0; // Définir l'angle de départ
     int end_angle = 60;  // Définir l'angle de fin
     int radius = 200;    // Définir le rayon
     int x = width / 2;   // Centrer le cercle en x
     int y = height / 2;  // Centrer le cercle en y
     int color;
-
     srand(time(NULL)); // Initialiser le générateur de nombres aléatoires
-    
+
     if (argc < 4)
     {
         printf("Usage: %s <output file> <percentages> <labels>\n", argv[0]);
@@ -59,30 +61,16 @@ int main(int argc, char **argv)
         printf("Erreur lors de l'analyse des segments\n");
         return 1;
     }
-
     // Créer une nouvelle image
     gdImagePtr img = gdImageCreate(width, height);
 
     // Couleur de fond
     int bg = gdImageColorAllocate(img, 255, 255, 255);
+    int black = gdImageColorAllocate(img, 0, 0, 0); // Couleur de la bordure
 
     // Dessiner le graphique en camembert
     // Dessiner chaque segment
-    for (int i = 0; i < length; i++)
-    {
-        int end_angle = start_angle + segments[i].percentage * 3.6; // Multiplier par 3.6 pour convertir en degrés
-
-        // Générer une couleur aléatoire
-        Color color = generate_random_color();
-
-        // Allouer la couleur dans l'image
-        int img_color = gdImageColorAllocate(img, color.r, color.g, color.b);
-
-        // Dessiner le segment du camembert
-        gdImageFilledArc(img, x, y, 2 * radius, 2 * radius, start_angle, end_angle, img_color, gdPie);
-
-        start_angle = end_angle;
-    }
+    draw_pie_chart_segments(img, segments, length, x, y, radius, black);
     // Enregistrer l'image
     FILE *out = fopen(output_file, "wb+");
 
@@ -100,6 +88,41 @@ int main(int argc, char **argv)
     gdImageDestroy(img);
     free(segments);
     return 0;
+}
+// Dessiner chaque segment du camembert
+void draw_pie_chart_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int radius, int black) {
+    int start_angle = 0;
+
+    for (int i = 0; i < length; i++)
+    {
+        int end_angle = start_angle + segments[i].percentage * 3.6; // Multiplier par 3.6 pour convertir en degrés
+
+        // Générer une couleur aléatoire
+        Color color = generate_random_color();
+
+        // Allouer la couleur dans l'image
+        int img_color = gdImageColorAllocate(img, color.r, color.g, color.b);
+
+        // Dessiner le segment du camembert
+        gdImageFilledArc(img, x, y, 2 * radius, 2 * radius, start_angle, end_angle, img_color, gdPie);
+
+        // Dessiner une bordure noire autour du segment
+        gdImageArc(img, x, y, 2 * radius, 2 * radius, start_angle, end_angle, black);
+
+        // Calculer les coordonnées du début et de la fin des lignes de séparation
+        double rad_start = start_angle * M_PI / 180.0;
+        double rad_end = end_angle * M_PI / 180.0;
+        int x_start = x + radius * cos(rad_start);
+        int y_start = y + radius * sin(rad_start);
+        int x_end = x + radius * cos(rad_end);
+        int y_end = y + radius * sin(rad_end);
+
+        // Dessiner les lignes de séparation
+        gdImageLine(img, x, y, x_start, y_start, black);
+        gdImageLine(img, x, y, x_end, y_end, black);
+
+        start_angle = end_angle;
+    }
 }
 
 // Analyse les pourcentages et les étiquettes depuis la ligne de commande
