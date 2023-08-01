@@ -4,15 +4,19 @@
 #include <string.h>
 #include <gd.h>
 #include <math.h>
-#include <unistd.h> 
+#include <unistd.h> // Pour accéder à la fonction access()
 
 #define FONT_PATH "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
-
+#define TITRE "Mon graphique en camembert"
+#define SIZE_TITLE 44
+#define WIDTH 2400
+#define HEIGTH 1600
 // Structure pour stocker les informations sur un segment du graphique
 typedef struct
 {
     int percentage;
     char *label;
+    gdImagePtr color;
 } PieChartSegment;
 
 // Définir une approximation de la palette "viridis"
@@ -37,11 +41,13 @@ PieChartSegment *parse_segments(char **input, int *length);
 void calculate_coordinates(int x, int y, int radius, int angle, int *coord_x, int *coord_y);
 void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int black);
 void draw_label(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int color);
+void draw_title(gdImagePtr img, const char *title, int x, int y, int color);
+
 
 int main(int argc, char **argv)
 {
-    int width = 2400;
-    int height = 1600;
+    int width = WIDTH;
+    int height = HEIGTH;
     int start_angle = 0; // Définir l'angle de départ
     int end_angle = 60;  // Définir l'angle de fin
     int radius = 600;    // Définir le rayon
@@ -71,6 +77,10 @@ int main(int argc, char **argv)
     // Couleur de fond
     int bg = gdImageColorAllocate(img, 255, 255, 255);
     int black = gdImageColorAllocate(img, 0, 0, 0); // Couleur de la bordure
+
+     // Dessinez le titre
+    draw_title(img, TITRE, width / 2, 50, black);
+
     // Dessiner le graphique en camembert
     // Dessiner chaque segment
     draw_pie_segments(img, segments, length, x, y, start_angle, radius, black);
@@ -84,6 +94,7 @@ int main(int argc, char **argv)
         return 1;
     }
     draw_label(img, segments, length, x, y, start_angle, radius, black);
+
     // Enregistrer l'image
     FILE *out = fopen(output_file, "wb+");
 
@@ -144,7 +155,6 @@ void draw_label(gdImagePtr img, PieChartSegment *segments, int length, int x, in
         label_y += (brect[3] - brect[5]) / 2;
 
         gdImageStringFT(img, brect, color, fontPath, fontSize, 0, label_x - (brect[2] - brect[0]) / 2, label_y + (brect[3] - brect[7]) / 2, label);
-
         start_angle = end_angle;
     }
 }
@@ -230,4 +240,27 @@ PieChartSegment *parse_segments(char **input, int *length)
         i++;
     }
     return segments;
+}
+
+void draw_title(gdImagePtr img, const char *title, int x, int y, int color)
+{
+    int brect[8];
+    double size = SIZE_TITLE;
+    char *err;
+    double angle = 0.0;
+    int len = strlen(title);
+    char string[len+1];
+    for(int i = 0; i < len; i++) {
+        string[i] = toupper(title[i]);
+    }
+    string[len] = '\0';
+
+    err = gdImageStringFT(NULL, &brect[0], color, FONT_PATH, size, angle, 0, 0, string);
+    if (err) {
+        fprintf(stderr, "Impossible de rendre le titre: %s\n", err);
+        return;
+    }
+    
+    gdImageStringFT(img, &brect[0], color, FONT_PATH, size, angle, x - brect[2] / 2, y, string);
+
 }
