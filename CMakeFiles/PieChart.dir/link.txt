@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/PieChart.dir/main.c.o -o PieChart  /usr/lib/x86_64-linux-gnu/libgd.so -lm 
