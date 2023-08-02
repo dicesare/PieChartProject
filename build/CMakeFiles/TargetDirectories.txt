@@ -1,7 +1,0 @@
-/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles/pie.dir
-/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles/edit_cache.dir
-/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles/rebuild_cache.dir
-/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles/list_install_components.dir
-/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles/install.dir
-/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles/install/local.dir
-/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles/install/strip.dir

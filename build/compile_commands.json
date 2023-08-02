@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/build",
-  "command": "/usr/bin/cc   -g -std=gnu11 -o CMakeFiles/pie.dir/main.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c",
-  "file": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c"
-}
-]

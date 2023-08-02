@@ -11,6 +11,7 @@
         "initializer_list": "c",
         "unistd.h": "c",
         "math.h": "c",
-        "system_error": "c"
+        "system_error": "c",
+        "pie_chart.h": "c"
     }
 }
