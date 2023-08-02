@@ -1,10 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
+#ifndef PIE_CHART_H
+#define PIE_CHART_H
+
 #include <gd.h>
-#include <math.h>
 #include <unistd.h> // Pour accéder à la fonction access()
+
 
 #define FONT_PATH "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 #define SIZE_TITLE 44
@@ -39,91 +38,89 @@ typedef struct Color
 } Color;
 
 /**
- * @brief Generates a random color in the RGB color space.
+ * @brief Generates a random RGB color.
  * 
- * This function creates a random color by selecting random values for the red, green, and blue components.
- * It can be used whenever a random color is required, such as for styling different segments of a chart.
- *
- * @return Color The randomly generated color, with each component in the range 0-255.
+ * @return       A Color structure representing the randomly generated RGB color,
+ *               with red, green, and blue components ranging from 0 to 255.
  */
 Color generate_random_color();
+
 /**
- * @brief Parses the input data to create an array of PieChartSegment structures.
+ * @brief Parses pie chart segments from input strings.
+ *        This function extracts the percentages and labels from the command-line input
+ *        and creates an array of PieChartSegment structures to represent each segment of a pie chart.
  * 
- * This function takes an array of strings containing the input data and a pointer to an integer
- * to store the length of the array. It parses the data to create an array of PieChartSegment
- * structures, each representing a segment of a pie chart. The percentage, label, and color for each
- * segment are extracted from the input data.
- *
- * @param input Pointer to an array of strings containing the input data for the pie chart segments.
- * @param length Pointer to an integer where the length of the resulting array of PieChartSegment structures will be stored.
- * @return PieChartSegment* A dynamically allocated array of PieChartSegment structures representing the segments of the pie chart.
- *                          The caller is responsible for freeing this memory.
+ * @param input  An array of strings, where input[2] contains the comma-separated percentages
+ *               and input[3] contains the comma-separated labels for each pie chart segment.
+ * @param length A pointer to an integer to store the total number of pie chart segments.
+ * @return       A pointer to an array of PieChartSegment structures representing the segments of the pie chart,
+ *               or NULL if an allocation error occurs.
  */
+
 PieChartSegment *parse_segments(char **input, int *length);
 
 /**
- * @brief Calculates the coordinates of a point on a circle given its center, radius, and angle.
+ * @brief Calculates the coordinates of a point on a circle's circumference.
  * 
- * This function takes the x and y coordinates of the center of a circle, its radius, and an angle, and calculates
- * the x and y coordinates of the point on the circumference of the circle that corresponds to the given angle.
- * The results are stored in the pointers provided for `coord_x` and `coord_y`.
+ * This function takes the center (x, y), radius, and angle of a circle, and calculates
+ * the coordinates of the corresponding point on the circle's circumference. The calculated
+ * coordinates are stored in the addresses provided by coord_x and coord_y.
  *
- * @param x The x-coordinate of the center of the circle.
- * @param y The y-coordinate of the center of the circle.
+ * @param x The x-coordinate of the circle's center.
+ * @param y The y-coordinate of the circle's center.
  * @param radius The radius of the circle.
- * @param angle The angle in degrees, for which the coordinates are to be calculated.
- * @param coord_x Pointer to an integer where the calculated x-coordinate will be stored.
- * @param coord_y Pointer to an integer where the calculated y-coordinate will be stored.
+ * @param angle The angle in degrees from the positive x-axis to the point on the circle's circumference.
+ * @param coord_x Pointer to an integer where the x-coordinate of the point on the circumference will be stored.
+ * @param coord_y Pointer to an integer where the y-coordinate of the point on the circumference will be stored.
  */
 void calculate_coordinates(int x, int y, int radius, int angle, int *coord_x, int *coord_y);
 
 /**
- * @brief Draws the segments of a pie chart on an image.
- * 
- * This function takes an image pointer, an array of segments representing the different parts of the pie chart,
- * the center coordinates of the pie, starting angle, radius, and the color for the border, and then draws each
- * segment of the pie chart on the given image.
+ * @brief Draws the segments of a pie chart.
  *
- * @param img Pointer to the image where the pie chart will be drawn.
- * @param segments Pointer to an array of PieChartSegment structures representing the segments of the pie chart.
+ * This function iterates through the provided segments of a pie chart, calculates the start and end angles for each segment,
+ * and draws the segment using a randomly generated color. It also draws black borders around each segment and separating lines
+ * between adjacent segments.
+ *
+ * @param img Pointer to the image where the segments will be drawn.
+ * @param segments Pointer to an array of PieChartSegment structures containing the segment information.
  * @param length The number of segments in the pie chart.
- * @param x The x-coordinate of the center of the pie chart.
- * @param y The y-coordinate of the center of the pie chart.
- * @param start_angle The starting angle in degrees for the first segment of the pie chart.
+ * @param x The x-coordinate of the pie chart's center.
+ * @param y The y-coordinate of the pie chart's center.
+ * @param start_angle The starting angle for drawing the first segment (in degrees).
  * @param radius The radius of the pie chart.
- * @param black The color to be used for the border of the segments (usually black).
+ * @param black The color used for drawing the borders and separating lines (usually black).
  */
+
 void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int black);
 
 /**
- * @brief Draws the labels for the segments of a pie chart on an image.
- * 
- * This function takes an image pointer, an array of segments representing the different parts of the pie chart,
- * the center coordinates of the pie, starting angle, radius, and the color for the labels, and then draws the labels
- * corresponding to each segment of the pie chart on the given image.
+ * @brief Draws labels for segments of a pie chart.
+ *
+ * This function iterates through the provided segments of a pie chart, calculates the position
+ * for the label of each segment, and draws the label using the specified font settings. 
+ * The labels are positioned near the outer edge of the segments.
  *
  * @param img Pointer to the image where the labels will be drawn.
- * @param segments Pointer to an array of PieChartSegment structures representing the segments of the pie chart.
+ * @param segments Pointer to an array of PieChartSegment structures containing the label information.
  * @param length The number of segments in the pie chart.
- * @param x The x-coordinate of the center of the pie chart.
- * @param y The y-coordinate of the center of the pie chart.
- * @param start_angle The starting angle in degrees for the first segment of the pie chart.
+ * @param x The x-coordinate of the pie chart's center.
+ * @param y The y-coordinate of the pie chart's center.
+ * @param start_angle The starting angle for drawing the first segment (in degrees).
  * @param radius The radius of the pie chart.
- * @param color The color to be used for the labels.
+ * @param color The color used for drawing the text labels.
  */
 void draw_label(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int color);
 
 /**
- * @brief Draws the title of the pie chart on an image.
+ * @brief Draws the title text at the specified position in an image.
  * 
- * This function takes an image pointer, a title string, the coordinates where the title should be drawn, and the color
- * for the title text, and then draws the title on the given image.
- *
- * @param img Pointer to the image where the title will be drawn.
- * @param title Pointer to a string containing the title text.
- * @param x The x-coordinate of where the title will be drawn.
- * @param y The y-coordinate of where the title will be drawn.
- * @param color The color to be used for the title text.
+ * @param img    A pointer to the image where the title will be drawn.
+ * @param title  The title text to draw.
+ * @param x      The x-coordinate of the position where the title will be centered.
+ * @param y      The y-coordinate of the position where the title will be drawn.
+ * @param color  The color value to use for the text.
  */
 void draw_title(gdImagePtr img, char *title, int x, int y, int color);
+
+#endif // PIE_CHART_H

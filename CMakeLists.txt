@@ -25,7 +25,7 @@ find_path(GD_INCLUDE_DIR NAMES gd.h)
 find_library(GD_LIBRARY NAMES gd)
 
 # Create the executable
-add_executable(PieChart main.c)
+add_executable(PieChart main.c pie_chart.c)
 
 # Link the GD library
 target_include_directories(PieChart PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${GD_INCLUDE_DIR})
