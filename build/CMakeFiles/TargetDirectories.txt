@@ -1,4 +1,4 @@
-/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles/pie.dir
+/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles/PieChart.dir
 /home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles/edit_cache.dir
 /home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles/rebuild_cache.dir
 /home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles/list_install_components.dir
