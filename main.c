@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 
     // Draw the title
     draw_title(img, title, width / 2, 50, black);
-
+    
     // Draw the pie chart
     // Draw each segment
     draw_pie_segments(img, segments, length, x, y, start_angle, radius, black);
@@ -79,7 +79,6 @@ int main(int argc, char **argv)
 
     // Draw labels
     draw_label(img, segments, length, x, y, start_angle, radius, black);
-
     // Save the image
     FILE *out = fopen(output_file, "wb+");
     if (!out)

@@ -71,8 +71,7 @@ CMakeFiles/PieChart.dir/main.c.o: main.c \
   /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
-  /usr/include/ctype.h
+  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h
 
 CMakeFiles/PieChart.dir/pie_chart.c.o: pie_chart.c \
   /usr/include/stdc-predef.h \
@@ -150,7 +149,8 @@ CMakeFiles/PieChart.dir/pie_chart.c.o: pie_chart.c \
   /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
   /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
   /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
-  /usr/include/x86_64-linux-gnu/bits/mathcalls.h
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+  /usr/include/ctype.h
 
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
@@ -239,9 +239,9 @@ pie_chart.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
-/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
-
 /usr/include/ctype.h:
+
+/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
 
 /usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 

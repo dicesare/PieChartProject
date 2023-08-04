@@ -5,7 +5,7 @@
 #include <string.h>
 #include <math.h>
 #include <ctype.h>
-
+#include <gdfonts.h>
 
 /**
  * @brief Calculates the coordinates of a point on a circle's circumference.
@@ -49,7 +49,7 @@ void draw_label(gdImagePtr img, PieChartSegment *segments, int length, int x, in
     // Define the font parameters
     char *fontPath = FONT_PATH;      // Path to the font file, adjust for your system
     double fontSize = radius * 0.05; // Font size in points
-
+    
     for (int i = 0; i < length; i++)
     {
         int end_angle = start_angle + segments[i].percentage * 3.6; // Multiply by 3.6 to convert to degrees
@@ -221,6 +221,7 @@ void draw_title(gdImagePtr img, char *title, int x, int y, int color)
     gdImageStringFT(img, &brect[0], color, FONT_PATH, size, angle, x - brect[2] / 2, y, string);
 
 }
+
 /**
  * @brief Generates a random RGB color.
  * 
