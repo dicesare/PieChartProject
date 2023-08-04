@@ -74,3 +74,4 @@ CMakeLists.txt.user*
 
 save_code/
 *.png
+!images/*.png
