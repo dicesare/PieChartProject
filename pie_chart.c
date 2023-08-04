@@ -6,10 +6,11 @@
 #include <math.h>
 #include <ctype.h>
 #include <gdfonts.h>
+#include <libgen.h>
 
 /**
  * @brief Calculates the coordinates of a point on a circle's circumference.
- * 
+ *
  * This function takes the center (x, y), radius, and angle of a circle, and calculates
  * the coordinates of the corresponding point on the circle's circumference. The calculated
  * coordinates are stored in the addresses provided by coord_x and coord_y.
@@ -32,7 +33,7 @@ void calculate_coordinates(int x, int y, int radius, int angle, int *coord_x, in
  * @brief Draws labels for segments of a pie chart.
  *
  * This function iterates through the provided segments of a pie chart, calculates the position
- * for the label of each segment, and draws the label using the specified font settings. 
+ * for the label of each segment, and draws the label using the specified font settings.
  * The labels are positioned near the outer edge of the segments.
  *
  * @param img Pointer to the image where the labels will be drawn.
@@ -49,7 +50,7 @@ void draw_label(gdImagePtr img, PieChartSegment *segments, int length, int x, in
     // Define the font parameters
     char *fontPath = FONT_PATH;      // Path to the font file, adjust for your system
     double fontSize = radius * 0.05; // Font size in points
-    
+
     for (int i = 0; i < length; i++)
     {
         int end_angle = start_angle + segments[i].percentage * 3.6; // Multiply by 3.6 to convert to degrees
@@ -79,7 +80,6 @@ void draw_label(gdImagePtr img, PieChartSegment *segments, int length, int x, in
     }
 }
 
-
 /**
  * @brief Draws the segments of a pie chart.
  *
@@ -97,11 +97,11 @@ void draw_label(gdImagePtr img, PieChartSegment *segments, int length, int x, in
  * @param black The color used for drawing the borders and separating lines (usually black).
  */
 
-void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int black)
+void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, double start_angle, int radius, int black)
 {
     for (int i = 0; i < length; i++)
     {
-        int end_angle = start_angle + segments[i].percentage * 3.6; // Multiply by 3.6 to convert to degrees
+        double end_angle = start_angle + segments[i].percentage * 3.6; // Multiply by 3.6 to convert to degrees
 
         // Generate a random color
         Color color = generate_random_color();
@@ -142,57 +142,136 @@ void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, in
     }
 }
 
-
 /**
  * @brief Parses pie chart segments from input strings.
  *        This function extracts the percentages and labels from the command-line input
  *        and creates an array of PieChartSegment structures to represent each segment of a pie chart.
- * 
+ *
  * @param input  An array of strings, where input[2] contains the comma-separated percentages
  *               and input[3] contains the comma-separated labels for each pie chart segment.
  * @param length A pointer to an integer to store the total number of pie chart segments.
+ * @param argc
+ * @param output_file_name
  * @return       A pointer to an array of PieChartSegment structures representing the segments of the pie chart,
  *               or NULL if an allocation error occurs.
  */
 
-PieChartSegment *parse_segments(char **input, int *length)
+PieChartSegment *parse_segments(char **input, int *length, int argc, bool output_file_name)
 {
     // TODO: Parse percentages and labels from the input string
     // Store the total number of segments in *length
     // Return an array of PieChartSegments
-    char *input_percentages = input[2];
-    char *input_labels = input[3];
+    int segmentIndex = 1;
+    int segmentLengh = 1;
+    int i = 0;
     *length = 0;
-    for (char *p = input_percentages; *p != '\0'; p++)
+    if (output_file_name)
     {
-        if (*p == ',')
-            (*length)++;
+        segmentIndex++;
+        segmentLengh++;
     }
-    (*length)++; // Add 1 because there's one more segment than commas, otherwise it returns 2
+    while (segmentLengh < argc && is_number(input[segmentLengh]) && (strcmp(input[segmentLengh], "-T") != 0 && strcmp(input[segmentLengh], "--titre") != 0))
+    {
+        (*length)++;
+        segmentLengh++;
+    }
+
     PieChartSegment *segments = malloc(*length * sizeof(PieChartSegment));
     if (segments == NULL)
         return NULL; // Stop processing if allocation error occurs
-    int i = 0;
-    char *saveptr1, *saveptr2;                                             // Save pointers for strtok_r
-    char *token_percentages = strtok_r(input_percentages, ",", &saveptr1); // Use ',' to separate our string into tokens
-    char *token_labels = strtok_r(input_labels, ",", &saveptr2);           // Use ',' to separate our string into tokens
-    while (token_percentages != NULL && token_labels != NULL)
+
+    while (i < *length)
     {
+        int labelIndex = segmentLengh + i;
         segments[i].label = malloc(256 * sizeof(char));
         if (segments[i].label == NULL)
             exit(EXIT_FAILURE);
-        sscanf(token_percentages, "%d", &(segments[i].percentage));
-        strncpy(segments[i].label, token_labels, 256);
-        token_percentages = strtok_r(NULL, ",", &saveptr1);
-        token_labels = strtok_r(NULL, ",", &saveptr2);
+        sscanf(input[segmentIndex], "%lf", &(segments[i].percentage));
+
+        if (labelIndex < argc && (strcmp(input[labelIndex], "-T") != 0 && strcmp(input[labelIndex], "--titre") != 0))
+        {
+            strncpy(segments[i].label, input[labelIndex], 255);
+            segments[i].label[255] = '\0'; // Assure que la chaîne est terminée
+        }
+        else
+        {
+            segments[i].label[0] = '\0'; // Label vide si pas d'argument fourni
+        }
+        segmentIndex++;
         i++;
     }
     return segments;
 }
 
+bool validate_output_file(char **output_file, const char *executable_name)
+{
+    if (!*output_file)
+    {
+        char *cp_executable_name = strdup(executable_name);
+        char *base_name = basename(cp_executable_name);
+        size_t length = strlen(base_name) + 5; // provide space for expension
+        *output_file = malloc(length * sizeof(char));
+        if (!*output_file)
+        {
+            fprintf(stderr, "Memory allocation error!\n");
+            return false;
+        }
+        snprintf(*output_file, length, "%s.png", base_name);
+        return true;
+    }
+    return true;
+}
+
+/**
+ * @brief
+ *
+ * @param str
+ * @return true
+ * @return false
+ */
+bool is_number(char *str)
+{
+    if (*str == '\0')
+        return false;
+
+    bool has_dot = false; // Pour vérifier qu'il y a au plus un point décimal
+
+    if (*str == '-' || *str == '+') // Gérer un éventuel signe au début
+        str++;
+
+    while (*str)
+    {
+        if (*str == '.')
+        {
+            if (has_dot) // Si un point décimal a déjà été trouvé, retourner false
+                return false;
+            has_dot = true;
+        }
+        else if (!isdigit((unsigned char)*str))
+            return false;
+
+        str++;
+    }
+
+    return true;
+}
+
+
+/**
+ * @brief
+ *
+ * @param argc
+ * @return true
+ * @return false
+ */
+bool has_arguments(int argc)
+{
+    return argc >= 2;
+}
+
 /**
  * @brief Draws the title text at the specified position in an image.
- * 
+ *
  * @param img    A pointer to the image where the title will be drawn.
  * @param title  The title text to draw.
  * @param x      The x-coordinate of the position where the title will be centered.
@@ -206,25 +285,26 @@ void draw_title(gdImagePtr img, char *title, int x, int y, int color)
     char *err;
     double angle = 0.0;
     int len = strlen(title);
-    char string[len+1];
-    for(int i = 0; i < len; i++) {
+    char string[len + 1];
+    for (int i = 0; i < len; i++)
+    {
         string[i] = toupper(title[i]);
     }
     string[len] = '\0';
 
     err = gdImageStringFT(NULL, &brect[0], color, FONT_PATH, size, angle, 0, 0, string);
-    if (err) {
+    if (err)
+    {
         fprintf(stderr, "Impossible de rendre le titre: %s\n", err);
         return;
     }
-    
-    gdImageStringFT(img, &brect[0], color, FONT_PATH, size, angle, x - brect[2] / 2, y, string);
 
+    gdImageStringFT(img, &brect[0], color, FONT_PATH, size, angle, x - brect[2] / 2, y, string);
 }
 
 /**
  * @brief Generates a random RGB color.
- * 
+ *
  * @return       A Color structure representing the randomly generated RGB color,
  *               with red, green, and blue components ranging from 0 to 255.
  */

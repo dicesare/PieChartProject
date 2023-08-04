@@ -4,7 +4,7 @@
  * @brief Program to generate a pie chart image based on input data.
  * @version 0.1
  * @date 2023-08-02
- * 
+ *
  * @copyright Copyright (c) 2023
  */
 
@@ -26,33 +26,40 @@ int main(int argc, char **argv)
     int width = WIDTH;
     int height = HEIGTH;
     int start_angle = 0; // Define the start angle
-    int end_angle = 360;  // Define the end angle
+    int end_angle = 360; // Define the end angle
     int radius = 600;    // Define the radius
     int x = width / 2;   // Center the circle in x
     int y = height / 2;  // Center the circle in y
 
     // Variables for color, title, and file name
-    int color;
-    char *title = argv[4];
-    char *output_file = argv[1];
-    int length;
+    int color = 0;
+    char *title = "";
+    char *output_file = NULL;
+    int length = 0;
+    PieChartSegment *segments = NULL;
 
     srand(time(NULL)); // Initialize the random number generator
 
-    // Check for the correct number of command-line arguments
-    if (argc != 5)
+    if (has_arguments(argc))
     {
-        fprintf(stderr, "Usage: %s <output_file> <data> <labels> <title>\n", argv[0]);
+        if (!is_number(argv[1]))
+        {
+            output_file = argv[1];
+        }
+    }
+    if (!validate_output_file(&output_file, argv[0]))
+    {
+        fprintf(stderr, "Error with output file. Please correct and try again.\n");
         return 1;
     }
-
-    // Parse the segments from the command-line arguments
-    PieChartSegment *segments = parse_segments(argv, &length);
+    if (argc > 2 && is_number(argv[1])) segments = parse_segments(argv, &length, argc, false);
+    else if (argc >3 && !is_number(argv[1])) segments = parse_segments(argv, &length, argc, true);
     if (!segments)
     {
         printf("Error during segment analysis!\n");
         return 1;
     }
+ 
 
     // Create a new image
     gdImagePtr img = gdImageCreate(width, height);
@@ -63,7 +70,7 @@ int main(int argc, char **argv)
 
     // Draw the title
     draw_title(img, title, width / 2, 50, black);
-    
+
     // Draw the pie chart
     // Draw each segment
     draw_pie_segments(img, segments, length, x, y, start_angle, radius, black);
@@ -86,7 +93,7 @@ int main(int argc, char **argv)
         printf("Error while opening the output file!\n");
         gdImageDestroy(img);
         free(segments);
-        return 1;
+        return true;
     }
     gdImagePng(img, out);
     fclose(out);

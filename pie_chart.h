@@ -3,7 +3,7 @@
 
 #include <gd.h>
 #include <unistd.h> // Pour accéder à la fonction access()
-
+#include <stdbool.h>
 
 #define FONT_PATH "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 #define SIZE_TITLE 44
@@ -18,7 +18,7 @@
  */
 typedef struct PieChartSegment
 {
-    int percentage;      ///< The percentage that this segment represents in the pie chart.
+    double percentage;      ///< The percentage that this segment represents in the pie chart.
     char *label;         ///< The label for this segment (e.g., the name of the category).
     gdImagePtr color;    ///< The color used to draw this segment in the pie chart.
 } PieChartSegment;
@@ -57,7 +57,36 @@ Color generate_random_color();
  *               or NULL if an allocation error occurs.
  */
 
-PieChartSegment *parse_segments(char **input, int *length);
+PieChartSegment *parse_segments(char **input, int *length, int argc, bool output_file_name);
+
+/**
+ * @brief 
+ * 
+ * @param output_file 
+ * @param executable_name 
+ * @return true 
+ * @return false 
+ */
+bool validate_output_file(char **output_file,  const char *executable_name);
+
+/**
+ * @brief 
+ * 
+ * @param str 
+ * @return true 
+ * @return false 
+ */
+bool is_number(char *str);
+
+/**
+ * @brief 
+ * 
+ * @param argc 
+ * @return true 
+ * @return false 
+ */
+
+bool has_arguments(int argc);
 
 /**
  * @brief Calculates the coordinates of a point on a circle's circumference.
@@ -92,7 +121,7 @@ void calculate_coordinates(int x, int y, int radius, int angle, int *coord_x, in
  * @param black The color used for drawing the borders and separating lines (usually black).
  */
 
-void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int black);
+void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, double start_angle, int radius, int black);
 
 /**
  * @brief Draws labels for segments of a pie chart.
