@@ -66,6 +66,7 @@ CMakeFiles/PieChart.dir/main.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProject/m
   /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
   /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
   /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
+  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h \
   /usr/include/time.h \
   /usr/include/x86_64-linux-gnu/bits/time.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
@@ -138,6 +139,7 @@ CMakeFiles/PieChart.dir/pie_chart.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProj
   /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
   /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
   /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
+  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h \
   /usr/include/string.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
@@ -152,7 +154,8 @@ CMakeFiles/PieChart.dir/pie_chart.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProj
   /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
   /usr/include/ctype.h \
   /usr/include/gdfonts.h \
-  /usr/include/gd.h
+  /usr/include/gd.h \
+  /usr/include/libgen.h
 
 
 /usr/include/gdfonts.h:
@@ -175,6 +178,8 @@ CMakeFiles/PieChart.dir/pie_chart.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProj
 
 /usr/include/time.h:
 
+/usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h:
+
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 
 /usr/include/x86_64-linux-gnu/bits/confname.h:
@@ -188,6 +193,8 @@ CMakeFiles/PieChart.dir/pie_chart.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProj
 /home/antony_c/AJC/PROGRAM_C/PieChartProject/pie_chart.c:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
+
+/usr/include/libgen.h:
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
