@@ -8,43 +8,12 @@
 #include <gdfonts.h>
 #include <libgen.h>
 
-/**
- * @brief Calculates the coordinates of a point on a circle's circumference.
- *
- * This function takes the center (x, y), radius, and angle of a circle, and calculates
- * the coordinates of the corresponding point on the circle's circumference. The calculated
- * coordinates are stored in the addresses provided by coord_x and coord_y.
- *
- * @param x The x-coordinate of the circle's center.
- * @param y The y-coordinate of the circle's center.
- * @param radius The radius of the circle.
- * @param angle The angle in degrees from the positive x-axis to the point on the circle's circumference.
- * @param coord_x Pointer to an integer where the x-coordinate of the point on the circumference will be stored.
- * @param coord_y Pointer to an integer where the y-coordinate of the point on the circumference will be stored.
- */
-
 void calculate_coordinates(int x, int y, int radius, int angle, int *coord_x, int *coord_y)
 {
     *coord_x = x + radius * cos(angle * M_PI / 180);
     *coord_y = y + radius * sin(angle * M_PI / 180);
 }
 
-/**
- * @brief Draws labels for segments of a pie chart.
- *
- * This function iterates through the provided segments of a pie chart, calculates the position
- * for the label of each segment, and draws the label using the specified font settings.
- * The labels are positioned near the outer edge of the segments.
- *
- * @param img Pointer to the image where the labels will be drawn.
- * @param segments Pointer to an array of PieChartSegment structures containing the label information.
- * @param length The number of segments in the pie chart.
- * @param x The x-coordinate of the pie chart's center.
- * @param y The y-coordinate of the pie chart's center.
- * @param start_angle The starting angle for drawing the first segment (in degrees).
- * @param radius The radius of the pie chart.
- * @param color The color used for drawing the text labels.
- */
 void draw_label(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int color)
 {
     // Define the font parameters
@@ -79,23 +48,6 @@ void draw_label(gdImagePtr img, PieChartSegment *segments, int length, int x, in
         start_angle = end_angle;
     }
 }
-
-/**
- * @brief Draws the segments of a pie chart.
- *
- * This function iterates through the provided segments of a pie chart, calculates the start and end angles for each segment,
- * and draws the segment using a randomly generated color. It also draws black borders around each segment and separating lines
- * between adjacent segments.
- *
- * @param img Pointer to the image where the segments will be drawn.
- * @param segments Pointer to an array of PieChartSegment structures containing the segment information.
- * @param length The number of segments in the pie chart.
- * @param x The x-coordinate of the pie chart's center.
- * @param y The y-coordinate of the pie chart's center.
- * @param start_angle The starting angle for drawing the first segment (in degrees).
- * @param radius The radius of the pie chart.
- * @param black The color used for drawing the borders and separating lines (usually black).
- */
 
 void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, double start_angle, int radius, int black)
 {
@@ -142,19 +94,29 @@ void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, in
     }
 }
 
-/**
- * @brief Parses pie chart segments from input strings.
- *        This function extracts the percentages and labels from the command-line input
- *        and creates an array of PieChartSegment structures to represent each segment of a pie chart.
- *
- * @param input  An array of strings, where input[2] contains the comma-separated percentages
- *               and input[3] contains the comma-separated labels for each pie chart segment.
- * @param length A pointer to an integer to store the total number of pie chart segments.
- * @param argc
- * @param output_file_name
- * @return       A pointer to an array of PieChartSegment structures representing the segments of the pie chart,
- *               or NULL if an allocation error occurs.
- */
+void draw_title(gdImagePtr img, char *title, int x, int y, int color)
+{
+    int brect[8];
+    double size = SIZE_TITLE;
+    char *err;
+    double angle = 0.0;
+    int len = strlen(title);
+    char string[len + 1];
+    for (int i = 0; i < len; i++)
+    {
+        string[i] = toupper(title[i]);
+    }
+    string[len] = '\0';
+
+    err = gdImageStringFT(NULL, &brect[0], color, FONT_PATH, size, angle, 0, 0, string);
+    if (err)
+    {
+        fprintf(stderr, "Impossible de rendre le titre: %s\n", err);
+        return;
+    }
+
+    gdImageStringFT(img, &brect[0], color, FONT_PATH, size, angle, x - brect[2] / 2, y, string);
+}
 
 PieChartSegment *parse_segments(char **input, int *length, int argc, bool output_file_name)
 {
@@ -203,32 +165,38 @@ PieChartSegment *parse_segments(char **input, int *length, int argc, bool output
     return segments;
 }
 
-bool validate_output_file(char **output_file, const char *executable_name)
+char* generate_output_file(const char *executable_name)
 {
-    if (!*output_file)
+    char *base_name = generate_base_name_from_executable(executable_name);
+    size_t len = strlen(base_name) + 5; // Space for ".png" extension
+    char* output_file = malloc(len * sizeof(char));
+    if (output_file)
     {
-        char *cp_executable_name = strdup(executable_name);
-        char *base_name = basename(cp_executable_name);
-        size_t length = strlen(base_name) + 5; // provide space for expension
-        *output_file = malloc(length * sizeof(char));
-        if (!*output_file)
-        {
-            fprintf(stderr, "Memory allocation error!\n");
-            return false;
-        }
-        snprintf(*output_file, length, "%s.png", base_name);
-        return true;
+        snprintf(output_file, len, "%s.png", base_name);
     }
-    return true;
+    return output_file;
 }
 
-/**
- * @brief
- *
- * @param str
- * @return true
- * @return false
- */
+char* retrieve_title(int argc, char **argv, char *base_name)
+{
+    char *title = NULL;
+    for (int i = 1; i < argc - 1; i++)
+    {
+        if (strcmp(argv[i], "-T") == 0 || strcmp(argv[i], "--titre") == 0)
+        {
+            title = argv[i + 1];
+            break;
+        }
+    }
+    // Use base name as title if no title provided
+    if (title == NULL && base_name != NULL) title = base_name;
+    return title;
+}
+
+char* generate_base_name_from_executable(const char *executable_name) {
+    return basename(strdup(executable_name)); // Extrait le nom de base    
+}
+
 bool is_number(char *str)
 {
     if (*str == '\0')
@@ -256,58 +224,11 @@ bool is_number(char *str)
     return true;
 }
 
-
-/**
- * @brief
- *
- * @param argc
- * @return true
- * @return false
- */
 bool has_arguments(int argc)
 {
     return argc >= 2;
 }
 
-/**
- * @brief Draws the title text at the specified position in an image.
- *
- * @param img    A pointer to the image where the title will be drawn.
- * @param title  The title text to draw.
- * @param x      The x-coordinate of the position where the title will be centered.
- * @param y      The y-coordinate of the position where the title will be drawn.
- * @param color  The color value to use for the text.
- */
-void draw_title(gdImagePtr img, char *title, int x, int y, int color)
-{
-    int brect[8];
-    double size = SIZE_TITLE;
-    char *err;
-    double angle = 0.0;
-    int len = strlen(title);
-    char string[len + 1];
-    for (int i = 0; i < len; i++)
-    {
-        string[i] = toupper(title[i]);
-    }
-    string[len] = '\0';
-
-    err = gdImageStringFT(NULL, &brect[0], color, FONT_PATH, size, angle, 0, 0, string);
-    if (err)
-    {
-        fprintf(stderr, "Impossible de rendre le titre: %s\n", err);
-        return;
-    }
-
-    gdImageStringFT(img, &brect[0], color, FONT_PATH, size, angle, x - brect[2] / 2, y, string);
-}
-
-/**
- * @brief Generates a random RGB color.
- *
- * @return       A Color structure representing the randomly generated RGB color,
- *               with red, green, and blue components ranging from 0 to 255.
- */
 Color generate_random_color()
 {
     Color color;

@@ -8,7 +8,7 @@
 #define FONT_PATH "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 #define SIZE_TITLE 44
 #define WIDTH 2400
-#define HEIGTH 1600
+#define HEIGHT 1600
 
 /**
  * @brief Structure to represent a segment in a pie chart.
@@ -60,33 +60,53 @@ Color generate_random_color();
 PieChartSegment *parse_segments(char **input, int *length, int argc, bool output_file_name);
 
 /**
- * @brief 
+ * @brief Extracts the base name (file name without path) from the given executable name.
+ *        This can be useful to create names based on the current executable.
  * 
- * @param output_file 
- * @param executable_name 
- * @return true 
- * @return false 
+ * @param executable_name The full path or name of the executable.
+ * @return char* A dynamically allocated string containing the base name of the executable.
  */
-bool validate_output_file(char **output_file,  const char *executable_name);
+char* generate_base_name_from_executable(const char *executable_name);
+
 
 /**
- * @brief 
+ * @brief Generates the output file name based on the executable name.
+ *        The file name will have the format "executable_name.png".
  * 
- * @param str 
- * @return true 
- * @return false 
+ * @param executable_name The name of the executable from which the output file name is derived.
+ * @return char* A dynamically allocated string containing the output file name, or NULL if allocation fails.
+ */
+char* generate_output_file(const char *executable_name);
+
+/**
+ * @brief Retrieves the title from the command-line arguments if present. If no title is provided and a base name is given, it returns the base name as the title.
+ *
+ * @param argc The number of command-line arguments.
+ * @param argv An array of command-line arguments.
+ * @param base_name The base name (usually extracted from the executable name), which will be used as the title if no title is provided in the command-line arguments.
+ * @return char* A pointer to the title string, or the base name if no title is provided in the command-line arguments.
+ */
+char* retrieve_title(int argc, char **argv, char *base_name);
+
+
+/**
+ * @brief Determines if a given string represents a valid number.
+ *
+ * @param str The string to check.
+ * @return true If the string represents a number.
+ * @return false If the string does not represent a number.
  */
 bool is_number(char *str);
 
 /**
- * @brief 
- * 
- * @param argc 
- * @return true 
- * @return false 
+ * @brief Checks if the program has been called with command-line arguments.
+ *
+ * @param argc The number of command-line arguments.
+ * @return true If there are command-line arguments besides the program name.
+ * @return false If there are no additional command-line arguments.
  */
-
 bool has_arguments(int argc);
+
 
 /**
  * @brief Calculates the coordinates of a point on a circle's circumference.
