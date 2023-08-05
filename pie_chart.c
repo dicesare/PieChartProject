@@ -71,7 +71,7 @@ void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, in
         double rad_start = start_angle * M_PI / 180.0;
         double rad_end = end_angle * M_PI / 180.0;
         double median = (end_angle + start_angle) / 2.0 * M_PI / 180.0;
-        int x_start, y_start, x_end, y_end;
+        double x_start, y_start, x_end, y_end;
         calculate_coordinates(x, y, radius, start_angle, &x_start, &y_start);
         calculate_coordinates(x, y, radius, end_angle, &x_end, &y_end);
 
