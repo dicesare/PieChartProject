@@ -3,12 +3,12 @@
 
 #include <gd.h>
 #include <unistd.h> // Pour accéder à la fonction access()
-
+#include <stdbool.h>
 
 #define FONT_PATH "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 #define SIZE_TITLE 44
 #define WIDTH 2400
-#define HEIGTH 1600
+#define HEIGHT 1600
 
 /**
  * @brief Structure to represent a segment in a pie chart.
@@ -18,7 +18,7 @@
  */
 typedef struct PieChartSegment
 {
-    int percentage;      ///< The percentage that this segment represents in the pie chart.
+    double percentage;      ///< The percentage that this segment represents in the pie chart.
     char *label;         ///< The label for this segment (e.g., the name of the category).
     gdImagePtr color;    ///< The color used to draw this segment in the pie chart.
 } PieChartSegment;
@@ -57,7 +57,56 @@ Color generate_random_color();
  *               or NULL if an allocation error occurs.
  */
 
-PieChartSegment *parse_segments(char **input, int *length);
+PieChartSegment *parse_segments(char **input, int *length, int argc, bool output_file_name);
+
+/**
+ * @brief Extracts the base name (file name without path) from the given executable name.
+ *        This can be useful to create names based on the current executable.
+ * 
+ * @param executable_name The full path or name of the executable.
+ * @return char* A dynamically allocated string containing the base name of the executable.
+ */
+char* generate_base_name_from_executable(const char *executable_name);
+
+
+/**
+ * @brief Generates the output file name based on the executable name.
+ *        The file name will have the format "executable_name.png".
+ * 
+ * @param executable_name The name of the executable from which the output file name is derived.
+ * @return char* A dynamically allocated string containing the output file name, or NULL if allocation fails.
+ */
+char* generate_output_file(const char *executable_name);
+
+/**
+ * @brief Retrieves the title from the command-line arguments if present. If no title is provided and a base name is given, it returns the base name as the title.
+ *
+ * @param argc The number of command-line arguments.
+ * @param argv An array of command-line arguments.
+ * @param base_name The base name (usually extracted from the executable name), which will be used as the title if no title is provided in the command-line arguments.
+ * @return char* A pointer to the title string, or the base name if no title is provided in the command-line arguments.
+ */
+char* retrieve_title(int argc, char **argv, char *base_name);
+
+
+/**
+ * @brief Determines if a given string represents a valid number.
+ *
+ * @param str The string to check.
+ * @return true If the string represents a number.
+ * @return false If the string does not represent a number.
+ */
+bool is_number(char *str);
+
+/**
+ * @brief Checks if the program has been called with command-line arguments.
+ *
+ * @param argc The number of command-line arguments.
+ * @return true If there are command-line arguments besides the program name.
+ * @return false If there are no additional command-line arguments.
+ */
+bool has_arguments(int argc);
+
 
 /**
  * @brief Calculates the coordinates of a point on a circle's circumference.
@@ -92,7 +141,7 @@ void calculate_coordinates(int x, int y, int radius, int angle, int *coord_x, in
  * @param black The color used for drawing the borders and separating lines (usually black).
  */
 
-void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, int start_angle, int radius, int black);
+void draw_pie_segments(gdImagePtr img, PieChartSegment *segments, int length, int x, int y, double start_angle, int radius, int black);
 
 /**
  * @brief Draws labels for segments of a pie chart.

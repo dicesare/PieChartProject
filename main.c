@@ -4,7 +4,7 @@
  * @brief Program to generate a pie chart image based on input data.
  * @version 0.1
  * @date 2023-08-02
- * 
+ *
  * @copyright Copyright (c) 2023
  */
 
@@ -22,32 +22,36 @@
  */
 int main(int argc, char **argv)
 {
-    // Define dimensions and geometric properties of the pie chart
-    int width = WIDTH;
-    int height = HEIGTH;
-    int start_angle = 0; // Define the start angle
-    int end_angle = 360;  // Define the end angle
-    int radius = 600;    // Define the radius
-    int x = width / 2;   // Center the circle in x
-    int y = height / 2;  // Center the circle in y
+    // Define basic geometric properties of the pie chart
+    int width = WIDTH, height = HEIGHT, radius = 600;
+    int x = width / 2, y = height / 2; // Center the circle
+    int start_angle = 0, end_angle = 360; // Full circle
 
-    // Variables for color, title, and file name
-    int color;
-    char *title = argv[4];
-    char *output_file = argv[1];
-    int length;
+    // Variables for title, output file name, and pie chart segments
+    char *output_file = NULL, *title = NULL, *base_name = NULL;
+    int length = 0;
+    PieChartSegment *segments = NULL;
 
-    srand(time(NULL)); // Initialize the random number generator
+    srand(time(NULL)); // Seed the random number generator
 
-    // Check for the correct number of command-line arguments
-    if (argc != 5)
+    // Handle output file argument
+    if (has_arguments(argc) && !is_number(argv[1]))
     {
-        fprintf(stderr, "Usage: %s <output_file> <data> <labels> <title>\n", argv[0]);
-        return 1;
+        output_file = argv[1];
+    }
+    else
+    {
+        output_file = generate_output_file(argv[0]);
+        if (!output_file)
+        {
+            fprintf(stderr, "Memory allocation error!\n");
+            exit(EXIT_FAILURE);
+        }
     }
 
-    // Parse the segments from the command-line arguments
-    PieChartSegment *segments = parse_segments(argv, &length);
+    // Parse the pie chart segments
+    if ((argc > 2 && is_number(argv[1])) || (argc > 3 && !is_number(argv[1])))
+        segments = parse_segments(argv, &length, argc, !is_number(argv[1]));
     if (!segments)
     {
         printf("Error during segment analysis!\n");
@@ -56,19 +60,15 @@ int main(int argc, char **argv)
 
     // Create a new image
     gdImagePtr img = gdImageCreate(width, height);
-
-    // Background color
-    int bg = gdImageColorAllocate(img, 255, 255, 255);
+    int bg = gdImageColorAllocate(img, 255, 255, 255); // Background color
     int black = gdImageColorAllocate(img, 0, 0, 0); // Border color
 
-    // Draw the title
-    draw_title(img, title, width / 2, 50, black);
-    
-    // Draw the pie chart
-    // Draw each segment
-    draw_pie_segments(img, segments, length, x, y, start_angle, radius, black);
+    // Retrieve title from command-line arguments or use base name
+    title = retrieve_title(argc, argv, generate_base_name_from_executable(argv[0]));
 
-    // Check for the existence of the font file before drawing labels
+    // Draw the title, pie chart segments, and labels
+    draw_title(img, title, width / 2, 50, black);
+    draw_pie_segments(img, segments, length, x, y, start_angle, radius, black);
     if (access(FONT_PATH, F_OK) == -1)
     {
         printf("The font file does not exist.\n");
@@ -76,10 +76,9 @@ int main(int argc, char **argv)
         free(segments);
         return 1;
     }
-
-    // Draw labels
     draw_label(img, segments, length, x, y, start_angle, radius, black);
-    // Save the image
+
+    // Save the image to a file
     FILE *out = fopen(output_file, "wb+");
     if (!out)
     {
@@ -92,12 +91,8 @@ int main(int argc, char **argv)
     fclose(out);
 
     // Clean up
-    // Free memory for labels
-    for (int i = 0; i < length; i++)
-    {
-        free(segments[i].label);
-    }
     gdImageDestroy(img);
+    for (int i = 0; i < length; i++) free(segments[i].label);
     free(segments);
 
     return 0;

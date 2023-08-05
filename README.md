@@ -16,21 +16,28 @@ gcc -o pie_chart pie_chart.c -lgd -lm
 
 ## Utilisation
 
-Pour utiliser le programme, vous aurez besoin de fournir quatre arguments sur la ligne de commande:
+Pour utiliser le programme, vous devrez fournir quatre arguments sur la ligne de commande:
 
 1. Le nom du fichier de sortie (par exemple, output.png)
-2. Les pourcentages pour chaque segment du diagramme circulaire, séparés par des virgules (par exemple, 20,30,50)
-3. Les étiquettes pour chaque segment, également séparées par des virgules (par exemple, label1,label2,label3)
-4. Le titre du graphique sera placé en fin d'argument.
+2. Les pourcentages pour chaque segment du diagramme circulaire, séparés par des espaces (par exemple, 20 30 50)
+3. Les étiquettes pour chaque segment, également séparées par des espaces (par exemple, Segment1 Segment2 Segment3)
+4. Le titre du graphique, s'il est souhaité, sera placé en fin d'argument avec `--titre` ou `-T`.
 
 Voici un exemple d'utilisation :
 
 ```bash
-./pie_chart output.png "50,30,20" "Etiquette1,Etiquette2,Etiquette3" "titre de mon graphique"
+./PieChart output.png 10 25 35 20 10 Segment1 Segment2 Segment3 Segment4 Segment5 --titre graphique
 ```
 
-
 ![Texte alternatif](images/output.png)
+
+On peut également générer un graphique juste avec les valeurs numériques (y compris les décimales):
+
+```bash
+./PieChart 10 25 35 20 10 
+```
+
+![Texte alternatif](images/no_label_output.png)
 
 ## Licence
 
