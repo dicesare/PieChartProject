@@ -72,6 +72,6 @@ CMakeLists.txt.user*
 *.dll
 *.exe
 
-save_code/
+save_code/*
 *.png
-!images/*.png
+!images/*.pngsavecode/
