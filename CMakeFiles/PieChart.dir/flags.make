@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/antony_c/AJC/PROGRAM_C/PieChartProject
+C_INCLUDES = -I/home/antony_c/AJC/PROGRAM_C/PieChartProject/include
 
 C_FLAGS = -std=gnu11
 

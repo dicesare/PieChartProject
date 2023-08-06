@@ -1,8 +1,14 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/PieChart.dir/main.c.o"
-  "CMakeFiles/PieChart.dir/main.c.o.d"
-  "CMakeFiles/PieChart.dir/pie_chart.c.o"
-  "CMakeFiles/PieChart.dir/pie_chart.c.o.d"
+  "CMakeFiles/PieChart.dir/src/controller/controller.c.o"
+  "CMakeFiles/PieChart.dir/src/controller/controller.c.o.d"
+  "CMakeFiles/PieChart.dir/src/main.c.o"
+  "CMakeFiles/PieChart.dir/src/main.c.o.d"
+  "CMakeFiles/PieChart.dir/src/model/model.c.o"
+  "CMakeFiles/PieChart.dir/src/model/model.c.o.d"
+  "CMakeFiles/PieChart.dir/src/utils/utils.c.o"
+  "CMakeFiles/PieChart.dir/src/utils/utils.c.o.d"
+  "CMakeFiles/PieChart.dir/src/view/view.c.o"
+  "CMakeFiles/PieChart.dir/src/view/view.c.o.d"
   "PieChart"
   "PieChart.pdb"
 )

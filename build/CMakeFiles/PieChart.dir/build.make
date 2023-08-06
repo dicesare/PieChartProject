@@ -69,48 +69,96 @@ include CMakeFiles/PieChart.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/PieChart.dir/flags.make
 
-CMakeFiles/PieChart.dir/main.c.o: CMakeFiles/PieChart.dir/flags.make
-CMakeFiles/PieChart.dir/main.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c
-CMakeFiles/PieChart.dir/main.c.o: CMakeFiles/PieChart.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/PieChart.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PieChart.dir/main.c.o -MF CMakeFiles/PieChart.dir/main.c.o.d -o CMakeFiles/PieChart.dir/main.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c
+CMakeFiles/PieChart.dir/src/main.c.o: CMakeFiles/PieChart.dir/flags.make
+CMakeFiles/PieChart.dir/src/main.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/main.c
+CMakeFiles/PieChart.dir/src/main.c.o: CMakeFiles/PieChart.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/PieChart.dir/src/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PieChart.dir/src/main.c.o -MF CMakeFiles/PieChart.dir/src/main.c.o.d -o CMakeFiles/PieChart.dir/src/main.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/main.c
 
-CMakeFiles/PieChart.dir/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/PieChart.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c > CMakeFiles/PieChart.dir/main.c.i
+CMakeFiles/PieChart.dir/src/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/PieChart.dir/src/main.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/main.c > CMakeFiles/PieChart.dir/src/main.c.i
 
-CMakeFiles/PieChart.dir/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/PieChart.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c -o CMakeFiles/PieChart.dir/main.c.s
+CMakeFiles/PieChart.dir/src/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/PieChart.dir/src/main.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/main.c -o CMakeFiles/PieChart.dir/src/main.c.s
 
-CMakeFiles/PieChart.dir/pie_chart.c.o: CMakeFiles/PieChart.dir/flags.make
-CMakeFiles/PieChart.dir/pie_chart.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProject/pie_chart.c
-CMakeFiles/PieChart.dir/pie_chart.c.o: CMakeFiles/PieChart.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/PieChart.dir/pie_chart.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PieChart.dir/pie_chart.c.o -MF CMakeFiles/PieChart.dir/pie_chart.c.o.d -o CMakeFiles/PieChart.dir/pie_chart.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/pie_chart.c
+CMakeFiles/PieChart.dir/src/model/model.c.o: CMakeFiles/PieChart.dir/flags.make
+CMakeFiles/PieChart.dir/src/model/model.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/model/model.c
+CMakeFiles/PieChart.dir/src/model/model.c.o: CMakeFiles/PieChart.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/PieChart.dir/src/model/model.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PieChart.dir/src/model/model.c.o -MF CMakeFiles/PieChart.dir/src/model/model.c.o.d -o CMakeFiles/PieChart.dir/src/model/model.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/model/model.c
 
-CMakeFiles/PieChart.dir/pie_chart.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/PieChart.dir/pie_chart.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/antony_c/AJC/PROGRAM_C/PieChartProject/pie_chart.c > CMakeFiles/PieChart.dir/pie_chart.c.i
+CMakeFiles/PieChart.dir/src/model/model.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/PieChart.dir/src/model/model.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/model/model.c > CMakeFiles/PieChart.dir/src/model/model.c.i
 
-CMakeFiles/PieChart.dir/pie_chart.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/PieChart.dir/pie_chart.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/antony_c/AJC/PROGRAM_C/PieChartProject/pie_chart.c -o CMakeFiles/PieChart.dir/pie_chart.c.s
+CMakeFiles/PieChart.dir/src/model/model.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/PieChart.dir/src/model/model.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/model/model.c -o CMakeFiles/PieChart.dir/src/model/model.c.s
+
+CMakeFiles/PieChart.dir/src/view/view.c.o: CMakeFiles/PieChart.dir/flags.make
+CMakeFiles/PieChart.dir/src/view/view.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/view/view.c
+CMakeFiles/PieChart.dir/src/view/view.c.o: CMakeFiles/PieChart.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/PieChart.dir/src/view/view.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PieChart.dir/src/view/view.c.o -MF CMakeFiles/PieChart.dir/src/view/view.c.o.d -o CMakeFiles/PieChart.dir/src/view/view.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/view/view.c
+
+CMakeFiles/PieChart.dir/src/view/view.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/PieChart.dir/src/view/view.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/view/view.c > CMakeFiles/PieChart.dir/src/view/view.c.i
+
+CMakeFiles/PieChart.dir/src/view/view.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/PieChart.dir/src/view/view.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/view/view.c -o CMakeFiles/PieChart.dir/src/view/view.c.s
+
+CMakeFiles/PieChart.dir/src/controller/controller.c.o: CMakeFiles/PieChart.dir/flags.make
+CMakeFiles/PieChart.dir/src/controller/controller.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/controller/controller.c
+CMakeFiles/PieChart.dir/src/controller/controller.c.o: CMakeFiles/PieChart.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/PieChart.dir/src/controller/controller.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PieChart.dir/src/controller/controller.c.o -MF CMakeFiles/PieChart.dir/src/controller/controller.c.o.d -o CMakeFiles/PieChart.dir/src/controller/controller.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/controller/controller.c
+
+CMakeFiles/PieChart.dir/src/controller/controller.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/PieChart.dir/src/controller/controller.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/controller/controller.c > CMakeFiles/PieChart.dir/src/controller/controller.c.i
+
+CMakeFiles/PieChart.dir/src/controller/controller.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/PieChart.dir/src/controller/controller.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/controller/controller.c -o CMakeFiles/PieChart.dir/src/controller/controller.c.s
+
+CMakeFiles/PieChart.dir/src/utils/utils.c.o: CMakeFiles/PieChart.dir/flags.make
+CMakeFiles/PieChart.dir/src/utils/utils.c.o: /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/utils/utils.c
+CMakeFiles/PieChart.dir/src/utils/utils.c.o: CMakeFiles/PieChart.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/PieChart.dir/src/utils/utils.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PieChart.dir/src/utils/utils.c.o -MF CMakeFiles/PieChart.dir/src/utils/utils.c.o.d -o CMakeFiles/PieChart.dir/src/utils/utils.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/utils/utils.c
+
+CMakeFiles/PieChart.dir/src/utils/utils.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/PieChart.dir/src/utils/utils.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/utils/utils.c > CMakeFiles/PieChart.dir/src/utils/utils.c.i
+
+CMakeFiles/PieChart.dir/src/utils/utils.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/PieChart.dir/src/utils/utils.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/utils/utils.c -o CMakeFiles/PieChart.dir/src/utils/utils.c.s
 
 # Object files for target PieChart
 PieChart_OBJECTS = \
-"CMakeFiles/PieChart.dir/main.c.o" \
-"CMakeFiles/PieChart.dir/pie_chart.c.o"
+"CMakeFiles/PieChart.dir/src/main.c.o" \
+"CMakeFiles/PieChart.dir/src/model/model.c.o" \
+"CMakeFiles/PieChart.dir/src/view/view.c.o" \
+"CMakeFiles/PieChart.dir/src/controller/controller.c.o" \
+"CMakeFiles/PieChart.dir/src/utils/utils.c.o"
 
 # External object files for target PieChart
 PieChart_EXTERNAL_OBJECTS =
 
-PieChart: CMakeFiles/PieChart.dir/main.c.o
-PieChart: CMakeFiles/PieChart.dir/pie_chart.c.o
+PieChart: CMakeFiles/PieChart.dir/src/main.c.o
+PieChart: CMakeFiles/PieChart.dir/src/model/model.c.o
+PieChart: CMakeFiles/PieChart.dir/src/view/view.c.o
+PieChart: CMakeFiles/PieChart.dir/src/controller/controller.c.o
+PieChart: CMakeFiles/PieChart.dir/src/utils/utils.c.o
 PieChart: CMakeFiles/PieChart.dir/build.make
 PieChart: /usr/lib/x86_64-linux-gnu/libgd.so
 PieChart: CMakeFiles/PieChart.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable PieChart"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/antony_c/AJC/PROGRAM_C/PieChartProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable PieChart"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PieChart.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

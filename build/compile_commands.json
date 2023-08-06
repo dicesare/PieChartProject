@@ -1,12 +1,27 @@
 [
 {
   "directory": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/build",
-  "command": "/usr/bin/cc  -I/home/antony_c/AJC/PROGRAM_C/PieChartProject -g -std=gnu11 -o CMakeFiles/PieChart.dir/main.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c",
-  "file": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/main.c"
+  "command": "/usr/bin/cc  -I/home/antony_c/AJC/PROGRAM_C/PieChartProject/include -g -std=gnu11 -o CMakeFiles/PieChart.dir/src/main.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/main.c",
+  "file": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/src/main.c"
 },
 {
   "directory": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/build",
-  "command": "/usr/bin/cc  -I/home/antony_c/AJC/PROGRAM_C/PieChartProject -g -std=gnu11 -o CMakeFiles/PieChart.dir/pie_chart.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/pie_chart.c",
-  "file": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/pie_chart.c"
+  "command": "/usr/bin/cc  -I/home/antony_c/AJC/PROGRAM_C/PieChartProject/include -g -std=gnu11 -o CMakeFiles/PieChart.dir/src/model/model.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/model/model.c",
+  "file": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/src/model/model.c"
+},
+{
+  "directory": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/build",
+  "command": "/usr/bin/cc  -I/home/antony_c/AJC/PROGRAM_C/PieChartProject/include -g -std=gnu11 -o CMakeFiles/PieChart.dir/src/view/view.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/view/view.c",
+  "file": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/src/view/view.c"
+},
+{
+  "directory": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/build",
+  "command": "/usr/bin/cc  -I/home/antony_c/AJC/PROGRAM_C/PieChartProject/include -g -std=gnu11 -o CMakeFiles/PieChart.dir/src/controller/controller.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/controller/controller.c",
+  "file": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/src/controller/controller.c"
+},
+{
+  "directory": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/build",
+  "command": "/usr/bin/cc  -I/home/antony_c/AJC/PROGRAM_C/PieChartProject/include -g -std=gnu11 -o CMakeFiles/PieChart.dir/src/utils/utils.c.o -c /home/antony_c/AJC/PROGRAM_C/PieChartProject/src/utils/utils.c",
+  "file": "/home/antony_c/AJC/PROGRAM_C/PieChartProject/src/utils/utils.c"
 }
 ]

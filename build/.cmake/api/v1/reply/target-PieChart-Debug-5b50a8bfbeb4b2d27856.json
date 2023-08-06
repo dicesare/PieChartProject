@@ -13,7 +13,7 @@
 			"add_executable",
 			"install",
 			"target_link_libraries",
-			"target_include_directories"
+			"include_directories"
 		],
 		"files" : 
 		[
@@ -27,25 +27,25 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 28,
+				"line" : 25,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 35,
+				"line" : 31,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 32,
+				"line" : 28,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 31,
+				"line" : 12,
 				"parent" : 0
 			}
 		]
@@ -66,7 +66,7 @@
 			[
 				{
 					"backtrace" : 4,
-					"path" : "/home/antony_c/AJC/PROGRAM_C/PieChartProject"
+					"path" : "/home/antony_c/AJC/PROGRAM_C/PieChartProject/include"
 				}
 			],
 			"language" : "C",
@@ -81,7 +81,10 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1
+				1,
+				2,
+				3,
+				4
 			]
 		}
 	],
@@ -139,7 +142,10 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1
+				1,
+				2,
+				3,
+				4
 			]
 		}
 	],
@@ -148,13 +154,31 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "main.c",
+			"path" : "src/main.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "pie_chart.c",
+			"path" : "src/model/model.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/view/view.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/controller/controller.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/utils/utils.c",
 			"sourceGroupIndex" : 0
 		}
 	],

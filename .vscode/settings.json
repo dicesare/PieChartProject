@@ -12,6 +12,8 @@
         "unistd.h": "c",
         "math.h": "c",
         "system_error": "c",
-        "pie_chart.h": "c"
+        "pie_chart.h": "c",
+        "controller.h": "c",
+        "utils.h": "c"
     }
 }

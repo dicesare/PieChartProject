@@ -9,6 +9,8 @@
  */
 
 #include "pie_chart.h" // Include necessary header(s)
+#include "model/model.h"
+#include "view/view.h"
 #include <time.h>
 
 // Other constants, function prototypes, etc.
